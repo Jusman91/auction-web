@@ -25,7 +25,7 @@ export const authValidationSchema = (
 					.required('Address is required')
 					.max(100, 'Address is too long'),
 				role: Yup.string().oneOf(
-					['Auctioneer', 'Bedder', 'Admin'],
+					['Auctioneer', 'Bidder', 'Admin'],
 					'Invalid role',
 				),
 			}));

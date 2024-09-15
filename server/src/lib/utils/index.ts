@@ -4,3 +4,4 @@ export * from './generateToken';
 export { generateUniqueSlug } from './generateSlug';
 export { prismaError } from './prismaError';
 export { isValidObjectId } from './isValidObjecId';
+export { buildQuery } from './query/buildQuery';

@@ -48,3 +48,38 @@ export interface IUser {
 	profilePic?: string;
 	role?: Role;
 }
+
+export type OrderByWithRelationInput =
+	Prisma.UserOrderByWithRelationInput[];
+export type Pagination = {
+	page: string | undefined;
+	limit: string | undefined;
+};
+export type Query = { query: Request['query'] };
+export type UserWhereInput = Prisma.UserWhereInput;
+export type StringFilter = Prisma.StringFilter;
+export type BuildCondition = {
+	value: string;
+	isInsensitive?: boolean;
+};
+export type BuildQuery = {
+	query: Request['query'];
+	fields: Field[];
+};
+export type Field =
+	| 'name'
+	| 'email'
+	| 'phone'
+	| 'categories'
+	| 'address';
+export type BuildSearchCondition = {
+	search: string | undefined;
+	fields: Field[];
+};
+export type BuildSortCondition = {
+	sort: string | string[] | undefined;
+	order: string | string[] | undefined;
+};
+export type BuildFilterAndSearchConditionReturn =
+	UserWhereInput;
+export type FilterCondition = UserWhereInput;

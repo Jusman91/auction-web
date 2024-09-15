@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 import { customValidationReqBody } from './customValidationReqBody';
 import { authValidationSchema } from './schema/auth';
+import { userValidationSchema } from './schema/user';
 
 export const validationBody = {
 	auth: {
@@ -25,12 +26,12 @@ export const validationBody = {
 			) as unknown as Yup.ObjectSchema<any>,
 		),
 	},
-	// user: {
-	// 	create: customValidationReqBody(
-	// 		authValidationSchema(
-	// 			'register',
-	// 		) as unknown as Yup.ObjectSchema<any>,
-	// 	),
-	// 	update: customValidationReqBody(userValidationSchema),
-	// },
+	user: {
+		create: customValidationReqBody(
+			authValidationSchema(
+				'register',
+			) as unknown as Yup.ObjectSchema<any>,
+		),
+		update: customValidationReqBody(userValidationSchema),
+	},
 };
