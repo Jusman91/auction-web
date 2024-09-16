@@ -50,13 +50,16 @@ export interface IUser {
 }
 
 export type OrderByWithRelationInput =
-	Prisma.UserOrderByWithRelationInput[];
+	Prisma.UserOrderByWithRelationInput[] &
+		Prisma.AuctionItemOrderByWithRelationInput;
 export type Pagination = {
 	page: string | undefined;
 	limit: string | undefined;
 };
 export type Query = { query: Request['query'] };
 export type UserWhereInput = Prisma.UserWhereInput;
+export type AuctionItemWhereInput =
+	Prisma.AuctionItemWhereInput;
 export type StringFilter = Prisma.StringFilter;
 export type BuildCondition = {
 	value: string;
@@ -70,7 +73,7 @@ export type Field =
 	| 'name'
 	| 'email'
 	| 'phone'
-	| 'categories'
+	| 'category'
 	| 'address';
 export type BuildSearchCondition = {
 	search: string | undefined;
@@ -81,5 +84,6 @@ export type BuildSortCondition = {
 	order: string | string[] | undefined;
 };
 export type BuildFilterAndSearchConditionReturn =
-	UserWhereInput;
-export type FilterCondition = UserWhereInput;
+	UserWhereInput & AuctionItemWhereInput;
+export type FilterCondition = UserWhereInput &
+	AuctionItemWhereInput;

@@ -26,12 +26,14 @@ model User {
 model AuctionItem {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String
+  slug String @unique
   description String
-  categories String
+  category String
+  thumbnail String
   images String[] @default([])
   startingBid Float
-  currentBid Float
-  starTime DateTime
+  currentBid Float @default(0)
+  startTime DateTime
   endTime DateTime
   createdAt DateTime @default(now()) @db.Timestamp()
   updatedAt DateTime @updatedAt @db.Timestamp()

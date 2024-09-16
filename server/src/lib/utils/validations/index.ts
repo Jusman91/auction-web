@@ -3,6 +3,7 @@ import { customValidationReqBody } from './customValidationReqBody';
 import { authValidationSchema } from './schema/auth';
 import { userValidationSchema } from './schema/user';
 import { categoryValidationSchema } from './schema/category';
+import { auctionItemValidationSchema } from './schema/auctionItem';
 
 export const validationBody = {
 	auth: {
@@ -43,6 +44,18 @@ export const validationBody = {
 		),
 		update: customValidationReqBody(
 			categoryValidationSchema(
+				'update',
+			) as unknown as Yup.ObjectSchema<any>,
+		),
+	},
+	auctionItem: {
+		create: customValidationReqBody(
+			auctionItemValidationSchema(
+				'create',
+			) as unknown as Yup.ObjectSchema<any>,
+		),
+		update: customValidationReqBody(
+			auctionItemValidationSchema(
 				'update',
 			) as unknown as Yup.ObjectSchema<any>,
 		),

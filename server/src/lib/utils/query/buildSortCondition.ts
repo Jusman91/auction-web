@@ -5,7 +5,7 @@ export const buildSortCondition = ({
 	order,
 }: BuildSortCondition) => {
 	if (!sort || !order) {
-		return [];
+		return [{ createdAt: 'desc' }]; // default sort by 'createdAt' ascending
 	}
 
 	// change sort dan order to array, for consistency

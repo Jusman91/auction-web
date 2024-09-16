@@ -2,6 +2,7 @@ import {
 	BuildQuery,
 	FilterCondition,
 } from '../../../types';
+import { auctionItemFilter } from './auctionItemFilter';
 import { buildSearchCondition } from './buildSearchCondition';
 import { buildSortCondition } from './buildSortCondition';
 
@@ -15,6 +16,7 @@ export const buildQuery = ({
 	const { search, sort, order, page, limit } = query;
 	const filterCondition = {
 		...userFilter({ query }),
+		...auctionItemFilter({ query }),
 		...buildSearchCondition({
 			fields,
 			search: search as string,
