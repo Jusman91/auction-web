@@ -6,3 +6,63 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  slug String @unique
+  name String @unique
+  email String @unique
+  password String
+  address String
+  phone String @unique
+  profilePic String?
+  role Role @default(Bidder)
+  createdAt DateTime @default(now()) @db.Timestamp()
+  updatedAt DateTime @updatedAt @db.Timestamp()
+  AuctionItem AuctionItem[]
+  Bid Bid[]
+}
+
+model AuctionItem {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  slug String @unique
+  description String
+  category String
+  thumbnail String
+  images String[] @default([])
+  startingBid Float
+  currentBid Float @default(0)
+  startTime DateTime
+  endTime DateTime
+  createdAt DateTime @default(now()) @db.Timestamp()
+  updatedAt DateTime @updatedAt @db.Timestamp()
+  auctioneer User @relation(fields: [auctioneerId], references: [id], onDelete: Cascade)
+  auctioneerId String @db.ObjectId
+  bids Bid[]
+}
+
+model Category {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Bid {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  amount Float
+  createdAt DateTime @default(now()) @db.Timestamp()
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId String? @db.ObjectId
+
+  auction AuctionItem @relation(fields: [auctionId], references: [id])
+  auctionId String @db.ObjectId
+}
+
+enum Role {
+  Auctioneer
+  Bidder
+  Admin
+}
