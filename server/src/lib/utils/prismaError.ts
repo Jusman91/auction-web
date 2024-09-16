@@ -25,6 +25,10 @@ export const prismaError = (
 				message =
 					'Phone number is already in use. Please use a different number.';
 				break;
+			case target.includes('Category_name_key'):
+				message =
+					'Category name is already in use. Please use a different name.';
+				break;
 			default:
 				message =
 					'A unique constraint failed. Please ensure all fields are unique.';

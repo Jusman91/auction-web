@@ -2,6 +2,7 @@ import * as Yup from 'yup';
 import { customValidationReqBody } from './customValidationReqBody';
 import { authValidationSchema } from './schema/auth';
 import { userValidationSchema } from './schema/user';
+import { categoryValidationSchema } from './schema/category';
 
 export const validationBody = {
 	auth: {
@@ -33,5 +34,17 @@ export const validationBody = {
 			) as unknown as Yup.ObjectSchema<any>,
 		),
 		update: customValidationReqBody(userValidationSchema),
+	},
+	category: {
+		create: customValidationReqBody(
+			categoryValidationSchema(
+				'create',
+			) as unknown as Yup.ObjectSchema<any>,
+		),
+		update: customValidationReqBody(
+			categoryValidationSchema(
+				'update',
+			) as unknown as Yup.ObjectSchema<any>,
+		),
 	},
 };
