@@ -16,5 +16,5 @@ export const comparePassword = async (
 	);
 
 	if (!isPasswordValid)
-		throw createError(401, 'Invalid password');
+		throw createError(400, 'Invalid password');
 };
