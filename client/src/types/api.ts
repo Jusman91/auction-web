@@ -1,3 +1,4 @@
+import type { Dayjs } from 'dayjs';
 import type {
   IForgotPasswordFields,
   ILoginFields,
@@ -12,7 +13,28 @@ export enum MutationKeys {
   RESET_PASSWORD = 'resetPassword'
 }
 export enum QueryKeys {
-  LOGGEDIN = 'loggedIn'
+  LOGGEDIN = 'loggedIn',
+  AUCTION_ITEMS = 'auctionItems',
+  CATEGORIES = 'categories',
+  USERS = 'users'
+}
+
+export interface IQueryParams {
+  page: number;
+  sort: string | undefined;
+  order: string | undefined;
+  limit: number;
+  search: string | undefined;
+  category?: string | undefined;
+  startTime?: string | Dayjs | undefined;
+  endTime?: string | Dayjs | undefined;
+}
+export interface IResponseSuccess {
+  data: [];
+  limit: number;
+  page: number;
+  pageCount: number;
+  totalData: number;
 }
 
 export type Register = IRegisterFields;
@@ -35,7 +57,7 @@ export interface IForgotPasswordResponse extends IMessageResponse {}
 export interface IResetPasswordResponse extends IMessageResponse {}
 export interface IDeleteUserResponse extends IMessageResponse {}
 
-export type Role = 'Auctioneer' | 'Bedder' | 'Admin';
+export type Role = 'Auctioneer' | 'Bidder' | 'Admin';
 export interface IUser {
   id: string;
   name: string;
@@ -50,9 +72,33 @@ export interface IUser {
 
 export interface IHandleRegister {
   formFields: IRegisterFields;
-  // openModal: () => void;
 }
 export interface IHandleLogin {
   formFields: ILoginFields;
-  // openModal: () => void;
+}
+
+export interface IItem {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  category: string;
+  thumbnail: string;
+  images?: string[];
+  startingBid: number;
+  currentBid: number;
+  startTime: Date;
+  endTime: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  auctioneer: IUser;
+  auctioneerId: string;
+  bids?: [];
+}
+
+export interface ICategory {
+  id: string;
+  name: string;
+  createdAt: Date;
+  updatedAt: Date;
 }

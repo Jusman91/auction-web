@@ -5,6 +5,7 @@ import type {
 } from 'ant-design-vue';
 import type { Rule } from 'ant-design-vue/es/form';
 import type { FieldName } from './store';
+import type { Dayjs } from 'dayjs';
 export * from './store';
 export * from './storage';
 export * from './api';
@@ -66,3 +67,10 @@ export interface IAuthModalProps extends ModalProps {
   message: string;
   isSuccess: boolean;
 }
+
+export interface IButtonCollapsedSideBarProps {
+  collapsed: boolean;
+}
+
+export type Dates = [Dayjs, Dayjs] | [string, string] | undefined;
+export type Date = Dayjs | string | undefined;

@@ -38,7 +38,7 @@ export const getItems: RequestHandler = async (
 			data: item,
 			currentPage,
 			totalPages,
-			totalItem,
+			totalData: totalItem,
 		});
 	} catch (error) {
 		console.log('Error in getItems controller', error);

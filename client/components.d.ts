@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ATable: typeof import('ant-design-vue/es')['Table']
     AuthForm: typeof import('./src/components/form/auth/AuthForm.vue')['default']
     AuthFormButton: typeof import('./src/components/form/auth/AuthFormButton.vue')['default']
     AuthFormDynamicInput: typeof import('./src/components/form/auth/AuthFormDynamicInput.vue')['default']
@@ -14,9 +15,24 @@ declare module 'vue' {
     AuthFormSwitch: typeof import('./src/components/form/auth/AuthFormSwitch.vue')['default']
     AuthModal: typeof import('./src/components/modal/auth/AuthModal.vue')['default']
     BaseButton: typeof import('./src/components/elements/BaseButton.vue')['default']
+    BaseIcon: typeof import('./src/components/elements/BaseIcon.vue')['default']
     BaseLabel: typeof import('./src/components/elements/BaseLabel.vue')['default']
+    BaseLogo: typeof import('./src/components/elements/BaseLogo.vue')['default']
+    ButtonCollapsedSideBar: typeof import('./src/components/header/navbar/ButtonCollapsedSideBar.vue')['default']
+    DataTable: typeof import('./src/components/table/DataTable.vue')['default']
+    ExportDataTable: typeof import('./src/components/table/ExportDataTable.vue')['default']
+    FilterDate: typeof import('./src/components/filter/FilterDate.vue')['default']
+    FilterRangeDate: typeof import('./src/components/filter/FilterRangeDate.vue')['default']
     ModalAuth: typeof import('./src/components/modal/auth/ModalAuth.vue')['default']
+    Navbar: typeof import('./src/components/header/navbar/Navbar.vue')['default']
+    NavBar: typeof import('./src/components/header/navbar/NavBar.vue')['default']
+    Navlist: typeof import('./src/components/header/navbar/Navlist.vue')['default']
+    NavList: typeof import('./src/components/header/navbar/NavList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SideBarDashboard: typeof import('./src/components/header/navbar/SideBarDashboard.vue')['default']
+    TableFilterByDate: typeof import('./src/components/table/TableFilterByDate.vue')['default']
+    TableResetAllFilter: typeof import('./src/components/table/TableResetAllFilter.vue')['default']
+    TableSearch: typeof import('./src/components/table/TableSearch.vue')['default']
   }
 }

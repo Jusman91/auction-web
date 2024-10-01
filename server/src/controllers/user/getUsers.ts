@@ -50,7 +50,7 @@ export const getUsers: RequestHandler = async (
 			data: users,
 			currentPage,
 			totalPages,
-			totalUsers,
+			totalData: totalUsers,
 		});
 	} catch (error) {
 		console.log('error in get users: ', error);

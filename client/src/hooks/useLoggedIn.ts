@@ -1,5 +1,6 @@
 import { loggedIn } from '@/api';
 import { saveUser } from '@/lib/utils';
+import { store } from '@/store';
 import { QueryKeys } from '@/types';
 import { useQuery } from '@tanstack/vue-query';
 
@@ -16,6 +17,7 @@ export const useLoggedIn = () => {
     try {
       if (user) {
         saveUser({ user });
+        store.commit('user/SET_USER', user); // Update state Vuex
       }
     } catch (error) {
       console.error('Error logging in user:', error);

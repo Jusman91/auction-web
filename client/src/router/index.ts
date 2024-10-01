@@ -20,12 +20,14 @@ const router = createRouter({
         {
           path: 'forgot-password',
           name: 'forgotPassword',
-          component: () => import('../views/auth/ForgotPasswordView.vue')
+          component: () =>
+            import('../views/auth/ForgotPasswordView.vue')
         },
         {
           path: 'reset-password',
           name: 'resetPassword',
-          component: () => import('../views/auth/ResetPasswordView.vue')
+          component: () =>
+            import('../views/auth/ResetPasswordView.vue')
         }
       ]
     },
@@ -37,6 +39,73 @@ const router = createRouter({
           path: '/',
           name: 'home',
           component: () => import('../views/home/HomeView.vue')
+        },
+        {
+          path: '/dashboard',
+          name: 'Dashboard',
+          component: () => import('../layouts/DashboardLayout.vue'),
+          children: [
+            {
+              path: '',
+              name: 'Dashboard-Home',
+              component: () =>
+                import('../views/dashboard/DashboardView.vue')
+            },
+            {
+              path: 'users',
+              name: 'Users',
+              component: () =>
+                import('../views/dashboard/AllUser.vue')
+            },
+            {
+              path: 'items',
+              name: 'Items',
+              component: () =>
+                import('../views/dashboard/AllItems.vue')
+            },
+            {
+              path: 'my-items',
+              name: 'My-Items',
+              component: () =>
+                import('../views/dashboard/MyItems.vue')
+            },
+            {
+              path: 'create-item',
+              name: 'Create-Item',
+              component: () =>
+                import('../views/dashboard/CreateItem.vue')
+            },
+            {
+              path: 'categories',
+              name: 'Categories',
+              component: () =>
+                import('../views/dashboard/CategoriesView.vue')
+            },
+            {
+              path: 'income',
+              name: 'Income',
+              component: () =>
+                import('../views/dashboard/IncomeView.vue')
+            },
+            {
+              path: 'winning-bids',
+              name: 'Winning-Bids',
+              component: () =>
+                import('../views/dashboard/WinningBids.vue')
+            },
+            {
+              path: 'favorites',
+              name: 'Favorites',
+              component: () =>
+                import('../views/dashboard/MyFavorites.vue')
+            },
+            {
+              path: 'profile',
+              name: 'Profile',
+              component: () =>
+                import('../views/dashboard/PersonalProfile.vue')
+            }
+          ]
         }
       ]
     }
