@@ -3,3 +3,4 @@ export { default as FAILURE } from './failure.svg';
 export { default as EXPIRED } from './expired.svg';
 export { default as LOGO } from './logo-tasi.png';
 export { default as PROFILEPIC } from './profilePic.png';
+export { default as HERO_HOME } from './hero.webp';

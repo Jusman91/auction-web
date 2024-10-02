@@ -1,6 +1,8 @@
 <template>
   <Layout>
-    <section class="w-full h-screen">
+    <section
+      class="min-h-screen bg-gradient-to-br from-white to-primary-0/70 font-poppins"
+    >
       <NavBar />
       <RouterView />
     </section>

@@ -5,7 +5,8 @@ export enum StorageTypes {
   ACCESS_TOKEN = 'accessToken',
   IS_AUTHENTICATED = 'isAuthenticated',
   USER = 'user',
-  SELECTED_KEYS = 'selectedKeys'
+  SELECTED_KEYS_NAVBAR = 'selectedKeysNavbar',
+  SELECTED_KEYS_DASHBOARD = 'selectedKeysDashboard'
 }
 
 export type SaveUser = {

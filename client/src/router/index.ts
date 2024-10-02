@@ -41,6 +41,32 @@ const router = createRouter({
           component: () => import('../views/home/HomeView.vue')
         },
         {
+          path: '/items',
+          name: 'items',
+          component: () => import('../views/items/ItemsView.vue')
+        },
+        {
+          path: '/blog',
+          name: 'blog',
+          component: () => import('../views/blog/BlogView.vue')
+        },
+        {
+          path: '/about',
+          name: 'about',
+          component: () => import('../views/about/AboutView.vue')
+        },
+        {
+          path: '/services',
+          name: 'services',
+          component: () =>
+            import('../views/services/ServicesView.vue')
+        },
+        {
+          path: '/contact',
+          name: 'contact',
+          component: () => import('../views/contact/ContactView.vue')
+        },
+        {
           path: '/dashboard',
           name: 'Dashboard',
           component: () => import('../layouts/DashboardLayout.vue'),
