@@ -8,7 +8,7 @@ export const getCategories: RequestHandler = async (
 ) => {
 	try {
 		const categories = await prisma.category.findMany();
-		res.status(200).json({ categories });
+		res.status(200).json(categories);
 	} catch (error) {
 		console.log('Error in getCategories controller', error);
 		next(error);

@@ -1,10 +1,12 @@
-import { fileURLToPath, URL } from 'node:url'
+/// <reference types="vitest" />
+/// <reference types="vite/client" />
+import { fileURLToPath, URL } from 'node:url';
 
-import { defineConfig } from 'vite'
-import Components from 'unplugin-vue-components/vite'
-import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
-import vue from '@vitejs/plugin-vue'
-import vueDevTools from 'vite-plugin-vue-devtools'
+import { defineConfig } from 'vite';
+import Components from 'unplugin-vue-components/vite';
+import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
+import vue from '@vitejs/plugin-vue';
+import vueDevTools from 'vite-plugin-vue-devtools';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -24,4 +26,4 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   }
-})
+});

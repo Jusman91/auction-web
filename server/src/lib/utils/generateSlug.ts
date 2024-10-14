@@ -1,6 +1,5 @@
 import prisma from '../../lib/prisma';
 import slugify from 'slugify';
-// import { nanoid } from 'nanoid';
 import { GenerateSUniqueSlug } from '../../types';
 
 export const generateUniqueSlug = async ({
@@ -10,19 +9,26 @@ export const generateUniqueSlug = async ({
 	if (name) {
 		let newSlug = slugify(name, {
 			lower: true,
+			// remove: /[*+~.()'"!:@]/g,
 			strict: true,
 		});
 		const modelDelegate =
 			prisma[modelName as keyof typeof prisma];
-		const existingSlug = await (
+		let existingSlug = await (
 			modelDelegate as any
 		).findUnique({
 			where: { slug: newSlug },
 		});
 
-		if (existingSlug) {
-			const { nanoid } = await import('nanoid');
-			newSlug = `${newSlug}-${nanoid(5)}`;
+		let suffix = 1;
+		while (existingSlug) {
+			newSlug = `${newSlug}-${suffix}`;
+			existingSlug = await (
+				modelDelegate as any
+			).findUnique({
+				where: { slug: newSlug },
+			});
+			suffix++;
 		}
 
 		return newSlug;
