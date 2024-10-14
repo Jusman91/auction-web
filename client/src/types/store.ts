@@ -2,9 +2,11 @@ import type { FormInstance } from 'ant-design-vue';
 import type {
   FormName,
   IForgotPasswordFields,
+  IItem,
   ILoginFields,
   IRegisterFields,
   IResetPasswordFields,
+  IResponseSuccess,
   IUser
 } from '.';
 import type { store } from '@/store';
@@ -46,8 +48,9 @@ export type RootState = {
   form: FormState;
   modal: ModalState;
   user: UserState;
+  item: ItemState;
 };
-export type NameSpace = 'form' | 'auth' | 'modal' | 'user';
+export type NameSpace = 'form' | 'auth' | 'modal' | 'user' | 'item';
 export interface HelpersStore {
   store: Store;
   namespace: NameSpace;
@@ -100,3 +103,50 @@ export type MutationsModal = {
 export interface UserState {
   user: IUser | null;
 }
+
+export interface ItemState {
+  items: IItem[] | null;
+  item: IItem | null;
+  totalData: number;
+  loading: boolean;
+  error: string | null;
+}
+export enum MutationItemTypes {
+  SET_ITEMS = 'SET_ITEMS',
+  SET_ITEM = 'SET_ITEM',
+  SET_CURRENT_BID = 'SET_CURRENT_BID',
+  SET_LOADING = 'SET_LOADING',
+  SET_ERROR = 'SET_ERROR'
+}
+export enum ActionItemTypes {
+  GET_ITEMS = 'GET_ITEMS',
+  GET_ITEM = 'GET_ITEM'
+}
+export type MutationsItem = {
+  [MutationItemTypes.SET_ITEMS](
+    state: ItemState,
+    payload: IItem[] | null
+  ): void;
+  [MutationItemTypes.SET_CURRENT_BID](
+    state: ItemState,
+    payload: number
+  ): void;
+  [MutationItemTypes.SET_LOADING](
+    state: ItemState,
+    payload: boolean
+  ): void;
+  [MutationItemTypes.SET_ERROR](
+    state: ItemState,
+    payload: string | null
+  ): void;
+};
+export type ActionItem = {
+  [ActionItemTypes.GET_ITEMS](
+    context: ActionContext<ItemState, RootState>,
+    payload: any
+  ): Promise<void>;
+  [ActionItemTypes.GET_ITEM](
+    context: ActionContext<ItemState, RootState>,
+    payload: any
+  ): Promise<void>;
+};

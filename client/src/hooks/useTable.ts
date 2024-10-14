@@ -31,13 +31,26 @@ export const useTable = () => {
     const currentPage = pagination.current || 1; // Fallback to 1 if current page is not set
     const pageSize = pagination.pageSize || 10;
 
-    const sortFields = Array.isArray(sorter)
-      ? sorter.map((s) => s.field)
-      : [sorter.field];
+    // const sortFields = Array.isArray(sorter)
+    //   ? sorter.map((s) => s.field)
+    //   : [sorter.field];
 
-    const sortOrders = Array.isArray(sorter)
-      ? sorter.map((s) => (s.order === 'ascend' ? 'asc' : 'desc'))
-      : [sorter.order === 'ascend' ? 'asc' : 'desc'];
+    // const sortOrders = Array.isArray(sorter)
+    //   ? sorter.map((s) => (s.order === 'ascend' ? 'asc' : 'desc'))
+    //   : [sorter.order === 'ascend' ? 'asc' : 'desc'];
+    const sortParams = Array.isArray(sorter)
+      ? sorter.map((s) => ({
+          sort: s.field,
+          order: s.order === 'descend' ? 'desc' : 'asc'
+        }))
+      : sorter && sorter.field
+        ? [
+            {
+              sort: sorter.field,
+              order: sorter.order === 'descend' ? 'desc' : 'asc'
+            }
+          ]
+        : [];
 
     // Tangani filter kategori
     let filtersCategory: string | FilterValue = '';
@@ -68,24 +81,38 @@ export const useTable = () => {
     const updatedQuery: { [key: string]: string | string[] } = {
       ...route.query,
       page: currentPage.toString(),
-      limit: pageSize.toString()
-      // sort: (sortFields as string[]) || '',
-      // order: sortOrders || ''
+      limit: pageSize.toString(),
+      sort: sortParams.map((p) => p.sort) as string[],
+      order: sortParams.map((p) => p.order) as string[]
     };
 
-    // Hanya tambahkan `sort` jika ada nilai
-    if (sortFields.length > 0 && sortFields[0]) {
-      updatedQuery.sort = sortFields as string[];
+    if (sortParams.length > 0) {
+      updatedQuery.sort = sortParams.map((p) => p.sort) as string[];
+      updatedQuery.order = sortParams.map((p) => p.order) as string[];
     } else {
       delete updatedQuery.sort; // Hapus `sort` jika tidak ada nilai sorting
+      delete updatedQuery.order; // Hapus `order` jika tidak ada urutan sorting
     }
+    // if (sortFields.length === 0 || !sortFields[0]) {
+    //   delete updatedQuery.sort;
+    // }
+    // if (sortOrders.length === 0 || !sortOrders[0]) {
+    //   delete updatedQuery.order;
+    // }
 
-    // Hanya tambahkan `order` jika ada nilai
-    if (sortOrders.length > 0 && sortOrders[0]) {
-      updatedQuery.order = sortOrders as string[];
-    } else {
-      delete updatedQuery.order; // Hapus `order` jika tidak ada urutan
-    }
+    // Hanya tambahkan `sort` jika ada nilai
+    // if (sortFields.length > 0 && sortFields[0]) {
+    //   updatedQuery.sort = sortFields as string[];
+    // } else {
+    //   delete updatedQuery.sort; // Hapus `sort` jika tidak ada nilai sorting
+    // }
+
+    // // Hanya tambahkan `order` jika ada nilai
+    // if (sortOrders.length > 0 && sortOrders[0]) {
+    //   updatedQuery.order = sortOrders as string[];
+    // } else {
+    //   delete updatedQuery.order; // Hapus `order` jika tidak ada urutan
+    // }
 
     // Hanya tambahkan `category` jika ada nilai
     if (filtersCategory) {

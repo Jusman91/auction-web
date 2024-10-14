@@ -15,6 +15,7 @@ export enum MutationKeys {
 export enum QueryKeys {
   LOGGEDIN = 'loggedIn',
   AUCTION_ITEMS = 'auctionItems',
+  AUCTION_ITEM = 'auctionItem',
   CATEGORIES = 'categories',
   USERS = 'users'
 }
@@ -78,7 +79,7 @@ export interface IHandleLogin {
 }
 
 export interface IItem {
-  id: string;
+  _id: string;
   name: string;
   slug: string;
   description: string;

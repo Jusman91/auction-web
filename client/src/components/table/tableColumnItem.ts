@@ -6,6 +6,7 @@ import { h, ref } from 'vue';
 import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime'; // Import plugin duration
 import type { ColumnFilterItem } from 'ant-design-vue/es/table/interface';
+import { formatTimeCountdown } from '@/lib/utils/formatTimeCountdown';
 
 dayjs.extend(duration);
 dayjs.extend(relativeTime);
@@ -145,30 +146,20 @@ export const TableColumnItem = (categories: ICategory[]) => {
         }
       }),
       customRender: ({ record }) => {
-        const startTime = dayjs(record.startTime);
-        // const now = dayjs();
-        // const diff = startTime.diff(now); // Hitung selisih waktu
-
-        const timeLeft = ref(''); // Gunakan ref untuk menyimpan waktu tersisa
+        const startTime = dayjs(record.startTime).toDate();
+        const endTime = dayjs(record.endTime).toDate();
+        const timeUntilStart = ref(''); // Gunakan ref untuk menyimpan waktu tersisa
 
         const updateCountdown = () => {
-          const now = dayjs();
-          const diff = startTime.diff(now); // Hitung selisih waktu
-
-          if (diff > 0) {
-            const remainingTime = dayjs.duration(diff);
-            timeLeft.value = `${remainingTime.days()}d ${remainingTime.hours()}h ${remainingTime.minutes()}m ${remainingTime.seconds()}s`;
-          } else {
-            timeLeft.value = 'Auction Started'; // Tampilkan pesan jika waktu telah dimulai
-            clearInterval(intervalId); // Hentikan update setelah waktu telah dimulai
-          }
+          const { timeUntilStart: tUntilStart } = formatTimeCountdown(
+            startTime,
+            endTime
+          );
+          timeUntilStart.value = tUntilStart;
         };
-
-        const intervalId = setInterval(updateCountdown, 1000); // Perbarui waktu setiap 1 detik
-        updateCountdown(); // Panggil fungsi untuk inisialisasi pertama kali
-
-        // Kembalikan elemen dengan h
-        return h('span', timeLeft.value); // Tampilkan waktu tersisa
+        setInterval(updateCountdown, 1000); // Perbarui setiap detik
+        updateCountdown();
+        return h('span', timeUntilStart.value); // Tampilkan waktu tersisa
       }
     },
     {
@@ -190,29 +181,17 @@ export const TableColumnItem = (categories: ICategory[]) => {
         }
       }),
       customRender: ({ record }) => {
-        const endTime = dayjs(record.endTime);
-        const startTime = dayjs(record.startTime);
-        // const now = dayjs();
-
-        const timeLeft = ref(''); // Gunakan ref untuk menyimpan waktu tersisa
-
+        const endTime = dayjs(record.endTime).toDate();
+        const startTime = dayjs(record.startTime).toDate();
+        const timeLeft = ref('');
         const updateCountdown = () => {
-          const now = dayjs();
-          const diff = endTime.diff(now); // Hitung selisih waktu
-
-          if (now.isBefore(startTime)) {
-            timeLeft.value = 'Auction Not Started'; // Tampilkan pesan jika lelang belum dimulai
-            clearInterval(intervalId); // Hentikan interval jika lelang belum dimulai
-          } else if (diff > 0) {
-            const remainingTime = dayjs.duration(diff);
-            timeLeft.value = `${remainingTime.days()}d ${remainingTime.hours()}h ${remainingTime.minutes()}m ${remainingTime.seconds()}s`;
-          } else {
-            timeLeft.value = 'Auction Ended'; // Tampilkan pesan jika waktu telah habis
-            clearInterval(intervalId); // Hentikan update setelah waktu habis
-          }
+          const { timeLeft: tLeft } = formatTimeCountdown(
+            startTime,
+            endTime
+          );
+          timeLeft.value = tLeft;
         };
-
-        const intervalId = setInterval(updateCountdown, 1000); // Perbarui waktu setiap 1 detik
+        setInterval(updateCountdown, 1000); // Perbarui setiap detik
         updateCountdown(); // Panggil fungsi untuk inisialisasi pertama kali
 
         // Kembalikan elemen dengan h

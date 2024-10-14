@@ -18,6 +18,8 @@ export const handleStartTime = (
       router.push({
         query: {
           ...route.query,
+          page: 1,
+          limit: 10,
           startTime: startTimeString
         }
       });

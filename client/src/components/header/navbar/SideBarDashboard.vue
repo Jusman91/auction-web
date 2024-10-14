@@ -5,7 +5,7 @@ import {
 } from '@/lib/utils';
 import { menuDashboardItems } from '@/lib/utils/getMenuDashboardItems';
 import { Menu, type MenuProps } from 'ant-design-vue';
-import { ref } from 'vue';
+import { onUnmounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -15,6 +15,10 @@ const handleClick: MenuProps['onClick'] = (e) => {
   router.push(`/dashboard/${e.key}`);
   saveSelectedKeysDashboard(e.key as string);
 };
+
+onUnmounted(() => {
+  saveSelectedKeysDashboard('dashboard');
+});
 </script>
 
 <template>
@@ -23,6 +27,7 @@ const handleClick: MenuProps['onClick'] = (e) => {
     class="custom-menu-dashboard !bg-inherit font-medium py-8 md:py-0 border-b-0 sticky top-0 h-[60vh] overflow-y-scroll overflow-x-hidden"
     mode="inline"
     v-model:selected-keys="selectedKeys"
+    :active-key="selectedKeys[0]"
     :items="menuDashboardItems"
     @click="handleClick"
   >

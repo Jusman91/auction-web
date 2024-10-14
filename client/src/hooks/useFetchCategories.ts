@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/vue-query';
 export const useFetchCategories = () => {
   const { data: categories } = useQuery({
     queryKey: [QueryKeys.CATEGORIES],
-    queryFn: () => fetchCategories(),
+    queryFn: fetchCategories,
     refetchOnWindowFocus: false
   });
   return {

@@ -39,18 +39,20 @@ onClickOutside(modalRef, () => {
   <Modal
     ref="modalRef"
     :open="open"
-    :closabled="true"
     centered
     :footer="null"
     :close-icon="null"
     :after-close="afterClose"
-    class="w-full max-w-[500px]"
+    class="auth-modal w-full max-w-[500px]"
   >
     <div
       class="flex flex-col justify-center items-center gap-6 py-11 px-6 rounded-2xl"
     >
       <img :src="icon" :alt="alt" loading="lazy" />
-      <div class="first-letter:capitalize text-center">
+      <div
+        aria-hidden="false"
+        class="first-letter:capitalize text-center"
+      >
         <h1 class="text-3xl">{{ title }}</h1>
         <h2 class="text-sm font-medium text-gray-500">
           {{ message }}
@@ -59,3 +61,9 @@ onClickOutside(modalRef, () => {
     </div>
   </Modal>
 </template>
+
+<style>
+.auth-modal div[aria-hidden='true'] {
+  display: none;
+}
+</style>

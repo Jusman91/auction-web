@@ -11,7 +11,7 @@ import { useStore } from 'vuex';
 const { Item } = Form;
 const store = useStore<RootState>();
 const name = computed(() => store.state.form.name);
-const model = computed(() => store.state.form.model || {});
+const model = computed(() => store.state.form.model);
 const { fieldItems } = getAuthFormFields(name.value);
 </script>
 

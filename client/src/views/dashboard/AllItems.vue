@@ -5,12 +5,22 @@ import { TableColumnItem } from '@/components/table/tableColumnItem';
 import { useFetchCategories, useFetchItems } from '@/hooks';
 import { useSearchParamsQuery } from '@/hooks/useSearchParams';
 import { useTable } from '@/hooks/useTable';
+import { getCollection } from '@/lib/realm/getCollection';
+import { parseDateString } from '@/lib/utils';
+import { buildSortCondition } from '@/lib/utils/builtSortCondition';
 import {
   exportToCSV,
   exportToExcel,
   exportToPDF
 } from '@/lib/utils/exportData';
-import { type ICategory, type IItem } from '@/types';
+import { useDispatch } from '@/store/helpers';
+import {
+  ActionItemTypes,
+  type ActionItem,
+  type ICategory,
+  type IItem,
+  type RootState
+} from '@/types';
 import type { DataTableType } from '@/types/table';
 import type {
   ColumnsType,
@@ -20,15 +30,28 @@ import type {
   FilterValue,
   SorterResult
 } from 'ant-design-vue/es/table/interface';
-import { computed } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
+import { useStore } from 'vuex';
 const { categories } = useFetchCategories();
 const columnsItem = computed(() =>
   TableColumnItem(categories.value as ICategory[])
 );
+
 const { queryParams } = useSearchParamsQuery();
-const { handleTableChange } = useTable();
+const store = useStore<RootState>();
+const { dispatch } = useDispatch<ActionItem>({
+  store,
+  namespace: 'item'
+});
+// const items = computed(() => store.state.item.items as IItem[]);
+// const totalData = computed(() => store.state.item.totalData);
+// const isLoading = computed(() => store.state.item.loading);
 const { data, isLoading, isFetching, error } =
   useFetchItems(queryParams);
+
+const { handleTableChange } = useTable();
+// const { data, isLoading, isFetching, error } =
+//   useFetchItems(queryParams);
 const handleTableChangeItems = (
   pagination: TablePaginationConfig,
   filters: Record<string, FilterValue | null>,
@@ -42,7 +65,7 @@ const handleTableChangeItems = (
     filters
   });
 };
-console.log(data.value?.data);
+// console.log(data.value?.data);
 const columnsToExport = [
   'id',
   'name',
@@ -60,7 +83,7 @@ const columnsToExport = [
     <h1>Items</h1>
     <DataTable
       table-name="table-item"
-      :data="data?.data as IItem[]"
+      :data="data?.items as IItem[]"
       :totalData="data?.totalData as number"
       :columns="columnsItem as ColumnsType<DataTableType>"
       v-on:table-change="handleTableChangeItems"

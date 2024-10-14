@@ -5,27 +5,27 @@ import { useRoute } from 'vue-router';
 export function useSearchParamsQuery() {
   const route = useRoute();
 
-  const search = computed(() => route.query.search as string);
+  const search = computed(() => route.query?.search as string);
   const page = computed(() =>
-    parseInt((route.query.page as string) || '1', 10)
+    parseInt((route.query?.page as string) || '1', 10)
   );
   const limit = computed(() =>
-    parseInt((route.query.limit as string) || '10', 10)
+    parseInt((route.query?.limit as string) || '10', 10)
   );
   const sort = computed(
-    () => (route.query.sort as string) || undefined
+    () => (route.query?.sort as string) || undefined
   );
   const order = computed(
-    () => (route.query.order as string) || undefined
+    () => (route.query?.order as string) || undefined
   );
   const category = computed(
-    () => (route.query.category as string) || undefined
+    () => (route.query?.category as string) || undefined
   );
   const startTime = computed(
-    () => (route.query.startTime as string) || undefined
+    () => (route.query?.startTime as string) || undefined
   );
   const endTime = computed(
-    () => (route.query.endTime as string) || undefined
+    () => (route.query?.endTime as string) || undefined
   );
   console.log(category.value);
   const queryParams = reactive<IQueryParams>({

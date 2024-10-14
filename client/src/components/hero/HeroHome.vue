@@ -12,8 +12,8 @@ const onSearch = (searchValue: string) => {
 </script>
 
 <template>
-  <section
-    class="w-full h-[calc(100vh-64px)] bg-primary-20/70 flex flex-col md:flex-row justify-between items-center gap-x-16 px-16"
+  <div
+    class="h-[calc(100vh-64px)] bg-primary-20/70 flex flex-col md:flex-row justify-between items-center gap-x-16 px-16"
   >
     <div class="w-full md:w-1/2 text-white flex flex-col gap-4">
       <CustomTransition name="slide-fade" appear>
@@ -48,5 +48,5 @@ const onSearch = (searchValue: string) => {
         />
       </CustomTransition>
     </div>
-  </section>
+  </div>
 </template>

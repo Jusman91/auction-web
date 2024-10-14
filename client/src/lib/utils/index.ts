@@ -6,3 +6,4 @@ export { getAuthFormValidations } from './auth/getAuthFormValidation';
 export { isAuthFormFieldHidden } from './auth/isAuthFormFieldHidden';
 export { getAuthFormButtonText } from './auth/getAuthFormButtonText';
 export { tablePaginationConfig } from './tablePaginationConfig';
+export { parseDateString } from './parseDateString';

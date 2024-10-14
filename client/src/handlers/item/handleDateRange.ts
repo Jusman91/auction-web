@@ -30,6 +30,8 @@ export const handleDateRange = (
       router.push({
         query: {
           ...route.query,
+          page: 1,
+          limit: 10,
           startTime: startTimeString,
           endTime: endTimeString
         }
